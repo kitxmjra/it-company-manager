@@ -1,24 +1,24 @@
 let ITcompany = [
   { name: "Andrey", exp: 'Middle', freeTime: 6, status: 'busy' },
-  { name: "Egor", exp: 'Senior', freeTime: 4, status: 'free' },
+  { name: "Egor", exp: 'Senior', freeTime: 7, status: 'free' },
   { name: "Christian", exp: 'Junior', freeTime: 7, status: 'free' },
   { name: "Mia", exp: 'Junior', freeTime: 1, status: 'busy' }
 ];
 
 let Tasks = [
-  { taskName: "code-review", timeForTask: 4, status: 'get ready' },
-  { taskName: "bug fix", timeForTask: 2, status: 'in progress' }
+  { taskName: '"code-review"', timeForTask: 4, status: 'get ready' },
+  { taskName: '"bug fix"', timeForTask: 2, status: 'in progress' },
 ];
 let taskForExp = ((company) => company.filter((developer) => developer.exp !== "Junior" && developer.status === "free"))
 
 let busyTasks = (task) => {
   if (task.status === 'in progress') {
-    return `Sorry, the task ${task.taskName} is already in progress!`;
+    return true;
   } else {
-    return `Task ${task.taskName} is free to take`;
+    return false;
   }
 };
-// console.log(busyTasks(Tasks[1]));
+//console.log(busyTasks(Tasks[0]));
 
 let checkDeveloper = ((developer) => { if(developer.status === 'busy') {
   return `${developer.name} is in progress`;
@@ -41,23 +41,22 @@ else {
 
 // TODO: add task checking using 'busyTasks' before execution
 let dataChange = ((developer, task) => {
-  if(developer.freeTime >= task.timeForTask && developer.status === 'free') {
+   if(busyTasks(task)) {
+     return true;
+  }
+  else {
     developer.status = 'busy';
 
 
-    developer.freeTime -= task.timeForTask;
+    developer.freeTime -= task.timeForTask
 
 
-    return `${developer.name} performs the task ${task.taskName} and he had an ${developer.freeTime} left`;
-
-  }
-  else {
-    return `${developer.name} busy`
+     return `${developer.name} performs the task ${task.taskName} and he had an ${developer.freeTime} left`
   }
 
 
 })
-//  console.log(dataChange(ITcompany[1], Tasks[1]))
+ console.log(dataChange(ITcompany[2], Tasks[1]))
 
 
 let addDeveloper = ((team, name, exp) =>  {
@@ -81,5 +80,5 @@ let addDeveloper = ((team, name, exp) =>  {
 
 })
 
-console.log(addDeveloper(ITcompany, "Dmitry", 'Junior'));
+//console.log(addDeveloper(ITcompany, "Dmitry", 'Junior'));
 
