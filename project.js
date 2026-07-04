@@ -1,8 +1,8 @@
 let ITcompany = [
-  { name: "Andrey", exp: 'Middle', freeTime: 6, status: 'busy' },
-  { name: "Egor", exp: 'Senior', freeTime: 7, status: 'free' },
-  { name: "Christian", exp: 'Junior', freeTime: 7, status: 'free' },
-  { name: "Mia", exp: 'Junior', freeTime: 1, status: 'busy' }
+  { name: 'Andrey', id: 0, exp: 'Middle', freeTime: 6, status: 'busy' },
+  { name: 'Egor', id: 1, exp: 'Senior', freeTime: 7, status: 'free' },
+  { name: 'Christian', id: 2, exp: 'Junior', freeTime: 7, status: 'free' },
+  { name: 'Mia', id: 3, exp: 'Junior', freeTime: 1, status: 'busy' },
 ];
 
 let Tasks = [
@@ -38,11 +38,9 @@ else {
   }
 })
 // console.log(salaryForDeveloper(ITcompany[3]));
-
-// TODO: add task checking using 'busyTasks' before execution
 let dataChange = ((developer, task) => {
    if(busyTasks(task)) {
-     return `Task not available`;
+     return `Tasks not available`;
   }
   else {
     developer.status = 'busy';
@@ -56,7 +54,7 @@ let dataChange = ((developer, task) => {
 
 
 })
- console.log(dataChange(ITcompany[2], Tasks[1]))
+ //console.log(dataChange(ITcompany[2], Tasks[0]))
 
 
 let addDeveloper = ((team, name, exp) =>  {
@@ -82,3 +80,8 @@ let addDeveloper = ((team, name, exp) =>  {
 
 //console.log(addDeveloper(ITcompany, "Dmitry", 'Junior'));
 
+
+let deleteDeveloper = (team, id) =>
+  team.filter((developer) => developer.id !== id);
+
+//console.log(deleteDeveloper(ITcompany, 3));
