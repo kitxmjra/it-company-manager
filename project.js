@@ -7,7 +7,7 @@ let ITcompany = [
 
 let Tasks = [
   { taskName: '"code-review"', timeForTask: 4, status: 'get ready' },
-  { taskName: '"bug fix"', timeForTask: 2, status: 'in progress' },
+  { taskName: '"bug fix"', timeForTask: 2, status: 'busy' },
 ];
 let taskForExp = ((company) => company.filter((developer) => developer.exp !== "Junior" && developer.status === "free"))
 
@@ -85,3 +85,9 @@ let deleteDeveloper = (team, id) =>
   team.filter((developer) => developer.id !== id);
 
 //console.log(deleteDeveloper(ITcompany, 3));
+
+let showBusyTask = ((tasks) => tasks.filter((task) => task.status === 'busy'))
+
+
+//console.log(showBusyTask(Tasks))
+
