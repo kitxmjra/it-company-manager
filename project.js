@@ -48,11 +48,13 @@ let dataChange = ((developer, task) => {
       return `Tasks not available`;
     } else {
       developer.status = 'busy';
+      task.status = 'busy';
 
       if (developer.freeTime >= task.timeForTask) {
         developer.freeTime -= task.timeForTask;
         setTimeout(() => {
           developer.status = 'free';
+          task.status = 'free';
         }, 2900);
       }
     }
@@ -95,8 +97,9 @@ let addDeveloper = ((team, name, exp) =>  {
 
 let deleteDeveloper = (team, id) =>
   team.filter((developer) => developer.id !== id);
+ITcompany = deleteDeveloper(ITcompany, 4)
 
-//console.log(deleteDeveloper(ITcompany, 4));
+//console.log(ITcompany);
 
 let checkEachDeveloper = (team, id) =>
   team.find((developer) => developer.id === id)
