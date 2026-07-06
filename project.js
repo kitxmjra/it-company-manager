@@ -2,7 +2,7 @@ let ITcompany = [
   { name: 'Andrey', id: 0, exp: 'Middle', freeTime: 6, status: 'busy' },
   { name: 'Egor', id: 1, exp: 'Senior', freeTime: 7, status: 'free' },
   { name: 'Christian', id: 2, exp: 'Junior', freeTime: 7, status: 'free' },
-  { name: 'Mia', id: 3, exp: 'Junior', freeTime: 1, status: 'busy' },
+  { name: 'Mia', id: 3, exp: 'Junior', freeTime: 0, status: 'busy' },
 ];
 
 let Tasks = [
@@ -40,36 +40,34 @@ else {
 })
 // console.log(salaryForDeveloper(ITcompany[3]));
 let dataChange = ((developer, task) => {
-
-  if(busyTasks(task)) {
-     return `Tasks not available`;
+  if (developer.freeTime === 0) {
+    developer.status = 'totally exhausted';
+    return `${developer.name} is totally exhausted`;
   }
-  else {
-    developer.status = 'busy';
-    if (developer.freeTime === 0) {
-      developer.status = 'totally exhausted';
-    }
+    if (busyTasks(task)) {
+      return `Tasks not available`;
+    } else {
+      developer.status = 'busy';
 
-    if (developer.freeTime >= task.timeForTask) {
-      developer.freeTime -= task.timeForTask;
-      setTimeout(() => {
-        developer.status = 'free';
-      }, 2900);
+      if (developer.freeTime >= task.timeForTask) {
+        developer.freeTime -= task.timeForTask;
+        setTimeout(() => {
+          developer.status = 'free';
+        }, 2900);
+      }
     }
-
-    return `${developer.name} performs the task ${task.taskName} and he had an ${developer.freeTime} left`;
-  }
+  return `${developer.name} performs the task ${task.taskName} and he had an ${developer.freeTime} left`;
 
 
 })
-/*console.log(checkDeveloper(ITcompany[0]))
-console.log(dataChange(ITcompany[0], Tasks[0]))
+/*console.log(checkDeveloper(ITcompany[1]))
+console.log(dataChange(ITcompany[1], Tasks[0]))
 setTimeout(() => {
-  console.log(checkDeveloper(ITcompany[0]));
-}, 3000) */
+  console.log(checkDeveloper(ITcompany[1]));
+}, 3000)*/
 
 
-let addDeveloper = ((team, name, exp, id) =>  {
+let addDeveloper = ((team, name, exp) =>  {
   if(typeof name !== 'string' || name.trim() === '' || !isNaN(name)) {
     return `Invalid name`
   }
@@ -77,7 +75,7 @@ let addDeveloper = ((team, name, exp, id) =>  {
   if(validExp.includes(exp)) {
     let newDev = {
       name: name,
-      id: id,
+      id: team.length,
       exp: exp,
       status: 'free',
       freeTime: 8
@@ -91,13 +89,18 @@ let addDeveloper = ((team, name, exp, id) =>  {
 
 })
 
-//console.log(addDeveloper(ITcompany, "Dmitry", 'Junior', 4));
+//console.log(addDeveloper(ITcompany, "Dmitry", 'Junior'));
+//console.log(addDeveloper(ITcompany, 'Vika', 'Senior'));
 
 
 let deleteDeveloper = (team, id) =>
   team.filter((developer) => developer.id !== id);
 
 //console.log(deleteDeveloper(ITcompany, 4));
+
+let checkEachDeveloper = (team, id) =>
+  team.find((developer) => developer.id === id)
+//console.log(checkEachDeveloper(ITcompany, 4));
 
 let showBusyTask = ((tasks) => tasks.filter((task) => task.status === 'busy'))
 
