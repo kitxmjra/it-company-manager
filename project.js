@@ -12,13 +12,8 @@ let Tasks = [
 
 let taskForExp = ((team) => team.filter((developer) => developer.exp !== "Junior" && developer.status === "free"))
 
-let busyTasks = (task) => {
-  if (task.status === 'busy') {
-    return true;
-  } else {
-    return false;
-  }
-};
+let busyTasks = ((task) => task.status === 'busy');
+
 //console.log(busyTasks(Tasks[0]));
 
 let checkDeveloper = ((developer) => { if(developer.status === 'busy') {
@@ -38,7 +33,9 @@ else {
   return `${developer.name} great, but you still need to work a little bit more`
   }
 })
+
 // console.log(salaryForDeveloper(ITcompany[3]));
+
 let dataChange = ((developer, task) => {
   if (developer.freeTime === 0) {
     developer.status = 'totally exhausted';
@@ -53,15 +50,21 @@ let dataChange = ((developer, task) => {
       if (developer.freeTime >= task.timeForTask) {
         developer.freeTime -= task.timeForTask;
         setTimeout(() => {
+          if(developer.freeTime === 0) {
+            developer.status = 'totally exhausted'
+          }
+          else {
           developer.status = 'free';
+          }
           task.status = 'free';
         }, 2900);
       }
     }
-  return `${developer.name} performs the task ${task.taskName} and he had an ${developer.freeTime} left`;
+  return `${developer.name} performs the task ${task.taskName} and he has ${developer.freeTime} left`;
 
 
 })
+
 /*console.log(checkDeveloper(ITcompany[1]))
 console.log(dataChange(ITcompany[1], Tasks[0]))
 setTimeout(() => {
@@ -103,10 +106,9 @@ ITcompany = deleteDeveloper(ITcompany, 4)
 
 let checkEachDeveloper = (team, id) =>
   team.find((developer) => developer.id === id)
+
 //console.log(checkEachDeveloper(ITcompany, 4));
 
 let showBusyTask = ((tasks) => tasks.filter((task) => task.status === 'busy'))
 
-
 //console.log(showBusyTask(Tasks))
-
